@@ -14,12 +14,8 @@ namespace FileManager.DataAccess.DAO
         /// </summary>
         /// <param name="student"></param>
         /// <returns></returns>
-        public Student Add(Student student)
+        public Student Add(Student student, char FactoryType)
         {
-            char FactoryType = 'T';
-            Utils fileUtils = new Utils();
-            String parsedString = student.StudentId + "," + student.Name + "," + student.Surname + "," + student.DateOfBirth.Date.ToString("d");
-
             AbstractFileFactory fileFactory;
             switch (FactoryType)
             {
@@ -27,18 +23,16 @@ namespace FileManager.DataAccess.DAO
                     fileFactory = new TextFactory();
                     break;
                 case 'X':
-                    fileFactory = new TextFactory();
+                    fileFactory = new XmlFactory();
                     break;
                 case 'J':
-                    fileFactory = new TextFactory();
+                    fileFactory = new JsonFactory();
                     break;
                 default:
                     throw new NotImplementedException();
             }
-
             var file = fileFactory.CreateFile();
-            file.WriteToFile(parsedString);
-
+            file.WriteToFile(student);
             return student;
         }
     }

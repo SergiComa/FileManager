@@ -37,8 +37,8 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtSurname = new System.Windows.Forms.TextBox();
             this.txtDateOfBirth = new System.Windows.Forms.TextBox();
-            this.btnJson = new System.Windows.Forms.Button();
             this.btnXml = new System.Windows.Forms.Button();
+            this.btnJson = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSave
@@ -116,16 +116,6 @@
             this.txtDateOfBirth.Size = new System.Drawing.Size(100, 20);
             this.txtDateOfBirth.TabIndex = 8;
             // 
-            // btnJson
-            // 
-            this.btnJson.Location = new System.Drawing.Point(452, 259);
-            this.btnJson.Name = "btnJson";
-            this.btnJson.Size = new System.Drawing.Size(94, 38);
-            this.btnJson.TabIndex = 9;
-            this.btnJson.Text = "JsonSave";
-            this.btnJson.UseVisualStyleBackColor = true;
-            this.btnJson.Click += new System.EventHandler(this.button1_Click);
-            // 
             // btnXml
             // 
             this.btnXml.Location = new System.Drawing.Point(203, 259);
@@ -136,13 +126,23 @@
             this.btnXml.UseVisualStyleBackColor = true;
             this.btnXml.Click += new System.EventHandler(this.button2_Click);
             // 
+            // btnJson
+            // 
+            this.btnJson.Location = new System.Drawing.Point(461, 260);
+            this.btnJson.Name = "btnJson";
+            this.btnJson.Size = new System.Drawing.Size(93, 37);
+            this.btnJson.TabIndex = 11;
+            this.btnJson.Text = "SaveJson";
+            this.btnJson.UseVisualStyleBackColor = true;
+            this.btnJson.Click += new System.EventHandler(this.btnJson_Click);
+            // 
             // frmStudent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(728, 404);
-            this.Controls.Add(this.btnXml);
             this.Controls.Add(this.btnJson);
+            this.Controls.Add(this.btnXml);
             this.Controls.Add(this.txtDateOfBirth);
             this.Controls.Add(this.txtSurname);
             this.Controls.Add(this.txtName);
@@ -171,8 +171,8 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtSurname;
         private System.Windows.Forms.TextBox txtDateOfBirth;
-        private System.Windows.Forms.Button btnJson;
         private System.Windows.Forms.Button btnXml;
+        private System.Windows.Forms.Button btnJson;
     }
 }
 

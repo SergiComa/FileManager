@@ -9,6 +9,6 @@ namespace FileManager.DataAccess.DAO
 {
     public interface IStudentDAO
     {
-        Student Add(Student student);
+        Student Add(Student student, Char FactoryType);
     }
 }

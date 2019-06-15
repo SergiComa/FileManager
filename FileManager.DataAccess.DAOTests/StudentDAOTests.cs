@@ -19,14 +19,14 @@ namespace FileManager.DataAccess.DAO.Tests
         String readLineFromFile;
         [DataRow("1","Sergio","Gimenez", "19/09/1996", "1,Sergio,Gimenez,19/09/1996")]
         [TestMethod()]
-        public void AddTest(String id, String name, String surname, String DateOfBirth, String testEntry)
+        public void AddTestText(String id, String name, String surname, String DateOfBirth, String testEntry)
         {
             student.StudentId = Int32.Parse(id);
             student.Name = name;
             student.Surname = surname;
             student.DateOfBirth = DateTime.Parse(DateOfBirth).Date;
-            readStudent = iStudent.Add(student);
-            readLineFromFile = utils.ReadFromFile();
+            readStudent = iStudent.Add(student, 'T');
+            readLineFromFile = utils.ReadFromTxt();
             Assert.AreEqual(readLineFromFile, testEntry);
         }
     }

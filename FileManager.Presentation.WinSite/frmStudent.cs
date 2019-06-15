@@ -37,17 +37,29 @@ namespace FileManager.Presentation.WinSite
             student.Name = txtName.Text;
             student.Surname = txtSurname.Text;
             student.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text).Date;
-            iStudentDAO.Add(student);
+            iStudentDAO.Add(student, 'T');
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            IStudentDAO iStudentDAO = new StudentDAO();
+            Student student = new Student();
+            student.StudentId = Int32.Parse(txtStudentId.Text);
+            student.Name = txtName.Text;
+            student.Surname = txtSurname.Text;
+            student.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text).Date;
+            iStudentDAO.Add(student, 'X');
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnJson_Click(object sender, EventArgs e)
         {
-
+            IStudentDAO iStudentDAO = new StudentDAO();
+            Student student = new Student();
+            student.StudentId = Int32.Parse(txtStudentId.Text);
+            student.Name = txtName.Text;
+            student.Surname = txtSurname.Text;
+            student.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text).Date;
+            iStudentDAO.Add(student, 'J');
         }
     }
 }
