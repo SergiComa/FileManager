@@ -16,9 +16,29 @@ namespace FileManager.DataAccess.DAO
         /// <returns></returns>
         public Student Add(Student student)
         {
+            char FactoryType = 'T';
             Utils fileUtils = new Utils();
             String parsedString = student.StudentId + "," + student.Name + "," + student.Surname + "," + student.DateOfBirth.Date.ToString("d");
-            fileUtils.WriteToFile(parsedString);
+
+            AbstractFileFactory fileFactory;
+            switch (FactoryType)
+            {
+                case 'T':
+                    fileFactory = new TextFactory();
+                    break;
+                case 'X':
+                    fileFactory = new TextFactory();
+                    break;
+                case 'J':
+                    fileFactory = new TextFactory();
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            var file = fileFactory.CreateFile();
+            file.WriteToFile(parsedString);
+
             return student;
         }
     }

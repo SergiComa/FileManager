@@ -10,7 +10,7 @@ namespace FileManager.DataAccess.DAO
     public class Utils
     {
         static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        static string pathToFile = Path.Combine(path, "data.txt");
+        static string pathToFile = Path.Combine(path, "log.txt");
         /// <summary>
         /// Writes information to a file in a comma separated value manner
         /// </summary>
