@@ -17,9 +17,10 @@ namespace FileManager.DataAccess.DAO.Tests
         Student readStudent = new Student();
         Utils utils = new Utils();
         String readLineFromFile;
+
         [DataRow("1","Sergio","Gimenez", "19/09/1996", "1,Sergio,Gimenez,19/09/1996")]
         [TestMethod()]
-        public void AddTestText(String id, String name, String surname, String DateOfBirth, String testEntry)
+        public void TextTest(String id, String name, String surname, String DateOfBirth, String testEntry)
         {
             student.StudentId = Int32.Parse(id);
             student.Name = name;
@@ -27,6 +28,20 @@ namespace FileManager.DataAccess.DAO.Tests
             student.DateOfBirth = DateTime.Parse(DateOfBirth).Date;
             readStudent = iStudent.Add(student, 'T');
             readLineFromFile = utils.ReadFromTxt();
+            Assert.AreEqual(readLineFromFile, testEntry);
+        }
+
+        [DataRow("1", "Sergio", "Gimenez", "19/09/1996", "1,Sergio,Gimenez,19/09/1996 0:00:00")]
+        [TestMethod()]
+        public void JsonTest(String id, String name, String surname, String DateOfBirth, String testEntry)
+        {
+            student.StudentId = Int32.Parse(id);
+            student.Name = name;
+            student.Surname = surname;
+            student.DateOfBirth = DateTime.Parse(DateOfBirth).Date;
+            student = iStudent.Add(student, 'J');
+            readStudent = utils.ReadFromJson();
+            readLineFromFile = readStudent.StudentId + "," + readStudent.Name + "," + readStudent.Surname + "," + readStudent.DateOfBirth;
             Assert.AreEqual(readLineFromFile, testEntry);
         }
     }

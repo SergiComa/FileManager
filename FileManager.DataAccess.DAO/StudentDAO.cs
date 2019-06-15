@@ -16,21 +16,8 @@ namespace FileManager.DataAccess.DAO
         /// <returns></returns>
         public Student Add(Student student, char FactoryType)
         {
-            AbstractFileFactory fileFactory;
-            switch (FactoryType)
-            {
-                case 'T':
-                    fileFactory = new TextFactory();
-                    break;
-                case 'X':
-                    fileFactory = new XmlFactory();
-                    break;
-                case 'J':
-                    fileFactory = new JsonFactory();
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
+            Utils utilsFactory = new Utils();
+            AbstractFileFactory fileFactory = utilsFactory.DetectFactory(FactoryType);
             var file = fileFactory.CreateFile();
             file.WriteToFile(student);
             return student;

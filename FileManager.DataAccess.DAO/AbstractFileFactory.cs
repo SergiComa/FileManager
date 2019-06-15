@@ -10,13 +10,13 @@ using Newtonsoft.Json;
 namespace FileManager.DataAccess.DAO
 {
     //Abstract object
-    interface IGeneratedFile
+    public interface IGeneratedFile
     {
         void WriteToFile(Student student);
     }
 
     //Abstract Factory
-    interface AbstractFileFactory
+    public interface AbstractFileFactory
     {
         IGeneratedFile CreateFile();
     }
