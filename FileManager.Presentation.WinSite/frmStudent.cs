@@ -33,10 +33,11 @@ namespace FileManager.Presentation.WinSite
         {
             IStudentDAO iStudentDAO = new StudentDAO();
             Student student = new Student();
-            /*
-                TODO - Fill student with the text boxes
-             */
-            iStudentDAO.Add(student);
+            student.StudentId = Int32.Parse(txtStudentId.Text);
+            student.Name = txtName.Text;
+            student.Surname = txtSurname.Text;
+            student.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text);
+            //iStudentDAO.Add(student);
         }
     }
 }
