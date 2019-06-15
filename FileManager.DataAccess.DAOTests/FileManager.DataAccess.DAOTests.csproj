@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FileManager.Common.Models\FileManager.Common.Models.csproj">
+      <Project>{79cfa943-5821-47b6-a602-a14e07a70089}</Project>
+      <Name>FileManager.Common.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FileManager.DataAccess.DAO\FileManager.DataAccess.DAO.csproj">
       <Project>{3BCDEEF1-4F36-4B76-9B73-A8052EEDE204}</Project>
       <Name>FileManager.DataAccess.DAO</Name>

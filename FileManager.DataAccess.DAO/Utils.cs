@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileManager.Common.Models
+namespace FileManager.DataAccess.DAO
 {
-    class Utils
+    public class Utils
     {
         static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         static string pathToFile = Path.Combine(path, "data.txt");
