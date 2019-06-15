@@ -9,6 +9,11 @@ namespace FileManager.DataAccess.DAO
 {
     public class StudentDAO : IStudentDAO
     {
+        /// <summary>
+        /// Adds a student information to a file
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
         public Student Add(Student student)
         {
             Utils fileUtils = new Utils();

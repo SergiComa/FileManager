@@ -11,6 +11,10 @@ namespace FileManager.Common.Models
     {
         static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         static string pathToFile = Path.Combine(path, "data.txt");
+        /// <summary>
+        /// Writes information to a file in a comma separated value manner
+        /// </summary>
+        /// <param name="studentData"></param>
         public void WriteToFile(String studentData)
         {
             if (!File.Exists(pathToFile))
@@ -29,6 +33,10 @@ namespace FileManager.Common.Models
             }
         }
 
+        /// <summary>
+        /// Returns the last line from a file
+        /// </summary>
+        /// <returns></returns>
         public String ReadFromFile()
         {
             String line = "No line to read";
