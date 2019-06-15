@@ -11,7 +11,10 @@ namespace FileManager.DataAccess.DAO
     {
         public Student Add(Student student)
         {
-            throw new NotImplementedException();
+            Utils fileUtils = new Utils();
+            String parsedString = student.StudentId + "," + student.Name + "," + student.Surname + "," + student.DateOfBirth.Date.ToString("d");
+            fileUtils.WriteToFile(parsedString);
+            return student;
         }
     }
 }
