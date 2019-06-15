@@ -37,7 +37,7 @@ namespace FileManager.Presentation.WinSite
             student.Name = txtName.Text;
             student.Surname = txtSurname.Text;
             student.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text).Date;
-            iStudentDAO.Add(student);
+            iStudentDAO.Add(student);       
         }
     }
 }

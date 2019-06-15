@@ -28,5 +28,12 @@ namespace FileManager.Common.Models
                 }
             }
         }
+
+        public String ReadFromFile()
+        {
+            String line = "No line to read";
+            line = File.ReadLines(pathToFile).Last();
+            return line;
+        }
     }
 }
