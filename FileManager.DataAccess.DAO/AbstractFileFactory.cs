@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using FileManager.Common.Models;
 using Newtonsoft.Json;
 
@@ -90,8 +91,15 @@ namespace FileManager.DataAccess.DAO
     {
         public void WriteToFile(Student student)
         {
-           /* Utils logger = new Utils();
-            logger.WriteToFile("I'm properly creating a Xml factory");*/
+            String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            String pathToFile = Path.Combine(path, "xmlStudents.xml");
+
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Student));
+            TextWriter textWriter = new StreamWriter(pathToFile);
+            xmlSerializer.Serialize(textWriter, student);
+            //Important to close the stream, otherwise the writer will lock the file and
+            //other component will be able to perform R/W to it.
+            textWriter.Close();
         }
     }
 }

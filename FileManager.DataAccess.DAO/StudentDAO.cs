@@ -17,6 +17,7 @@ namespace FileManager.DataAccess.DAO
         public Student Add(Student student, char FactoryType)
         {
             Utils utilsFactory = new Utils();
+            //Single Responsability
             AbstractFileFactory fileFactory = utilsFactory.DetectFactory(FactoryType);
             var file = fileFactory.CreateFile();
             file.WriteToFile(student);

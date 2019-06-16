@@ -44,5 +44,19 @@ namespace FileManager.DataAccess.DAO.Tests
             readLineFromFile = readStudent.StudentId + "," + readStudent.Name + "," + readStudent.Surname + "," + readStudent.DateOfBirth;
             Assert.AreEqual(readLineFromFile, testEntry);
         }
+
+        [DataRow("1", "Sergio", "Gimenez", "19/09/1996", "1,Sergio,Gimenez,19/09/1996 0:00:00")]
+        [TestMethod()]
+        public void XmlTest(String id, String name, String surname, String DateOfBirth, String testEntry)
+        {
+            student.StudentId = Int32.Parse(id);
+            student.Name = name;
+            student.Surname = surname;
+            student.DateOfBirth = DateTime.Parse(DateOfBirth).Date;
+            student = iStudent.Add(student, 'X');
+            readStudent = utils.ReadFromXml();
+            readLineFromFile = readStudent.StudentId + "," + readStudent.Name + "," + readStudent.Surname + "," + readStudent.DateOfBirth;
+            Assert.AreEqual(readLineFromFile, testEntry);
+        }
     }
 }

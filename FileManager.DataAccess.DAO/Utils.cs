@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace FileManager.DataAccess.DAO
 {
@@ -35,6 +36,18 @@ namespace FileManager.DataAccess.DAO
             String lineFromFile = "No line to read";
             lineFromFile = File.ReadLines(pathToFile).Last();
             Student student = JsonConvert.DeserializeObject<Student>(lineFromFile);
+            return student;
+        }
+
+        public Student ReadFromXml()
+        {
+            String pathToFile = Path.Combine(path, "xmlStudents.xml");
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Student));
+            Student student = new Student();
+            using (var sr = new StreamReader(pathToFile))
+            {
+                 student = (Student)xmlSerializer.Deserialize(sr);
+            }
             return student;
         }
 
