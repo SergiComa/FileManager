@@ -18,7 +18,6 @@ namespace FileManager.DataAccess.DAO
         {
             bool FileExistsInDirectory;
             Utils utilsFactory = new Utils();
-            //Single Responsability
             AbstractFileFactory fileFactory = utilsFactory.DetectFactory(FactoryType);
             var file = fileFactory.CreateFile();
             FileExistsInDirectory = file.CheckFileExists();
