@@ -3,6 +3,7 @@ using FileManager.DataAccess.DAO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace FileManager.Presentation.WinSite
 
         private void frmStudent_Load(object sender, EventArgs e)
         {
-
+            String sAttr = ConfigurationManager.AppSettings.Get("XmlPath");
         }
 
         private void label1_Click(object sender, EventArgs e)

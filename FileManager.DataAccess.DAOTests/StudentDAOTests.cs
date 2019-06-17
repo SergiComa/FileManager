@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace FileManager.DataAccess.DAO.Tests
 {
@@ -16,6 +17,7 @@ namespace FileManager.DataAccess.DAO.Tests
         Student student = new Student();
         Student readStudent = new Student();
         Utils utils = new Utils();
+        String sAttr = ConfigurationManager.AppSettings.Get("XmlPath");
         String readLineFromFile;
 
         [DataRow("1","Sergio","Gimenez", "19/09/1996", "1,Sergio,Gimenez,19/09/1996")]
@@ -26,6 +28,7 @@ namespace FileManager.DataAccess.DAO.Tests
             student.Name = name;
             student.Surname = surname;
             student.DateOfBirth = DateTime.Parse(DateOfBirth).Date;
+
             readStudent = iStudent.Add(student, 'T');
             readLineFromFile = utils.ReadFromTxt();
             Assert.AreEqual(readLineFromFile, testEntry);

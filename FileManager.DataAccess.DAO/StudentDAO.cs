@@ -16,10 +16,16 @@ namespace FileManager.DataAccess.DAO
         /// <returns></returns>
         public Student Add(Student student, char FactoryType)
         {
+            bool FileExistsInDirectory;
             Utils utilsFactory = new Utils();
             //Single Responsability
             AbstractFileFactory fileFactory = utilsFactory.DetectFactory(FactoryType);
             var file = fileFactory.CreateFile();
+            FileExistsInDirectory = file.CheckFileExists();
+            if (FileExistsInDirectory == false)
+            {
+                file.CreateFile();
+            }
             file.WriteToFile(student);
             return student;
         }

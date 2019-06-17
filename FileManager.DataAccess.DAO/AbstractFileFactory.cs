@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using FileManager.Common.Models;
 using Newtonsoft.Json;
+using System.Configuration;
 
 namespace FileManager.DataAccess.DAO
 {
@@ -14,6 +15,8 @@ namespace FileManager.DataAccess.DAO
     public interface IGeneratedFile
     {
         void WriteToFile(Student student);
+        void CreateFile();
+        bool CheckFileExists();
     }
 
     //Abstract Factory
@@ -36,23 +39,28 @@ namespace FileManager.DataAccess.DAO
     {
         public void WriteToFile(Student student)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string pathToFile = Path.Combine(path, "log.txt");
+            String pathToFile = ConfigurationManager.AppSettings.Get("TxtPath");
             String parsedString = student.StudentId + "," + student.Name + "," + student.Surname + "," + student.DateOfBirth.Date.ToString("d");
-            if (!File.Exists(pathToFile))
+            using (var tw = new StreamWriter(pathToFile, true))
             {
-                File.Create(pathToFile);
-                TextWriter textWriter = new StreamWriter(pathToFile);
-                textWriter.WriteLine(parsedString);
-                textWriter.Close();
+                tw.WriteLine(parsedString);
             }
-            else if (File.Exists(pathToFile))
+        }
+
+        public bool CheckFileExists()
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("TxtPath");
+            if (File.Exists(pathToFile))
             {
-                using (var tw = new StreamWriter(pathToFile, true))
-                {
-                    tw.WriteLine(parsedString);
-                }
+                return true;
             }
+            return false;
+        }
+
+        public void CreateFile()
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("TxtPath");
+            File.Create(pathToFile);
         }
     }
 
@@ -70,10 +78,25 @@ namespace FileManager.DataAccess.DAO
     {
         public void WriteToFile(Student student)
         {
-            String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            String pathToFile = Path.Combine(path, "jsonStudents.json");
+            String pathToFile = ConfigurationManager.AppSettings.Get("JsonPath");
             String jsonData = JsonConvert.SerializeObject(student);
             System.IO.File.WriteAllText(pathToFile, jsonData);
+        }
+
+        public bool CheckFileExists()
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("JsonPath");
+            if (File.Exists(pathToFile))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void CreateFile()
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("JsonPath");
+            File.Create(pathToFile);
         }
     }
 
@@ -91,15 +114,27 @@ namespace FileManager.DataAccess.DAO
     {
         public void WriteToFile(Student student)
         {
-            String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            String pathToFile = Path.Combine(path, "xmlStudents.xml");
-
+            String pathToFile = ConfigurationManager.AppSettings.Get("XmlPath");
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(Student));
             TextWriter textWriter = new StreamWriter(pathToFile);
             xmlSerializer.Serialize(textWriter, student);
-            //Important to close the stream, otherwise the writer will lock the file and
-            //other component will be able to perform R/W to it.
             textWriter.Close();
+        }
+
+        public bool CheckFileExists()
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("XmlPath");
+            if (File.Exists(pathToFile))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void CreateFile()
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("XmlPath");
+            File.Create(pathToFile);
         }
     }
 }
