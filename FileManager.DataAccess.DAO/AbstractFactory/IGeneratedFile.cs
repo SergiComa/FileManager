@@ -14,6 +14,6 @@ namespace FileManager.DataAccess.DAO
         //Devuelva booleano
         void CreateFile();
         bool CheckFileExists();
-        String ReturnStringStudentById(int studentId);
+        Student ReturnStringStudentById(int studentId);
     }
 }

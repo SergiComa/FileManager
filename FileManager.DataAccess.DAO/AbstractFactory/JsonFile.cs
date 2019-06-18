@@ -49,9 +49,9 @@ namespace FileManager.DataAccess.DAO
             File.Create(pathToFile).Close();
         }
 
-        public String ReturnStringStudentById(int studentId)
+        public Student ReturnStringStudentById(int studentId)
         {
-            return "a";
+            return new Student();
         }
     }
 }

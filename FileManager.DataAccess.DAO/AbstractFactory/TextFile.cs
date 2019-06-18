@@ -50,24 +50,29 @@ namespace FileManager.DataAccess.DAO
             File.Create(pathToFile).Close();
         }
 
-        public String ReturnStringStudentById(int studentId)
+        public Student ReturnStringStudentById(int studentId)
         {
             String pathToFile = ConfigurationManager.AppSettings.Get("TxtPath");
-            String auxStudent;
+            String stringStudent;
             String givenStudent = null;
             String[] values;
+            Student auxStudent = new Student();
             bool studentFound = false;
             System.IO.StreamReader file = new System.IO.StreamReader(pathToFile);
-            while (((auxStudent = file.ReadLine()) != null) && studentFound == false)
+            while (((stringStudent = file.ReadLine()) != null) && studentFound == false)
             {
-                values = auxStudent.Split(',');
+                values = stringStudent.Split(',');
                 if (values[0] == studentId.ToString())
                 {
                     studentFound = true;
-                    givenStudent = auxStudent;
+                    givenStudent = stringStudent;
+                    auxStudent.StudentId = Int32.Parse(values[0]);
+                    auxStudent.Name = values[1];
+                    auxStudent.Surname = values[2];
+                    auxStudent.DateOfBirth = DateTime.Parse(values[3]);
                 }
             }
-            return givenStudent;
+            return auxStudent;
         }
     }
 }
