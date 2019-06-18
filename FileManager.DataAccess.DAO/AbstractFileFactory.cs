@@ -12,6 +12,13 @@ using System.Xml.Linq;
 
 namespace FileManager.DataAccess.DAO
 {
+
+    //Abstract Factory
+    public interface AbstractFileFactory
+    {
+        IGeneratedFile CreateFile();
+    }
+
     //Abstract object
     public interface IGeneratedFile
     {
@@ -20,11 +27,6 @@ namespace FileManager.DataAccess.DAO
         bool CheckFileExists();
     }
 
-    //Abstract Factory
-    public interface AbstractFileFactory
-    {
-        IGeneratedFile CreateFile();
-    }
 
     //Concrete text factory
     class TextFactory : AbstractFileFactory
@@ -84,6 +86,7 @@ namespace FileManager.DataAccess.DAO
         {
             String pathToFile = ConfigurationManager.AppSettings.Get("JsonPath");
             String newJson;
+            int testNumber = 3;
             int totalLines = 0;
             using (StreamReader r = new StreamReader(pathToFile))
             {
@@ -96,7 +99,7 @@ namespace FileManager.DataAccess.DAO
                 //Problem: If there's only one object I can't assign to it a List so a
                 //special method have to be made, but can't distinguish if there's just
                 //a single object or multiple. 3 passed to resort to default
-                switch (3)
+                switch (testNumber) 
                 {
                     case 0:
                         newJson = JsonConvert.SerializeObject(student);
@@ -131,6 +134,7 @@ namespace FileManager.DataAccess.DAO
         public void CreateFile()
         {
             String pathToFile = ConfigurationManager.AppSettings.Get("JsonPath");
+            //Initialize to init list
             File.Create(pathToFile).Close();
         }
     }
@@ -176,7 +180,6 @@ namespace FileManager.DataAccess.DAO
             XDocument doc = new XDocument();
             doc.Add(new XElement("Root", ""));
             doc.Save(pathToFile);
-            
         }
     }
 }
