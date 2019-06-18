@@ -64,7 +64,7 @@ namespace FileManager.DataAccess.DAO.Tests
 
         [DataRow(2, 'T', "2,ayy,lmao,11/11/1111")]
         [TestMethod()]
-        public void SearchTxtByIdTxt(int idStudent, char typeFactory, String testEntry)
+        public void SearchTxtById(int idStudent, char typeFactory, String testEntry)
         {
             AbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
             var file = fileFactory.CreateFile();
@@ -74,7 +74,7 @@ namespace FileManager.DataAccess.DAO.Tests
 
         [DataRow(2, 'X', "2,wer,wer,11/11/1111")]
         [TestMethod()]
-        public void SearchTxtByIdXml(int idStudent, char typeFactory, String testEntry)
+        public void SearchXmlById(int idStudent, char typeFactory, String testEntry)
         {
             AbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
             var file = fileFactory.CreateFile();

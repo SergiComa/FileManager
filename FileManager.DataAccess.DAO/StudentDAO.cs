@@ -20,6 +20,7 @@ namespace FileManager.DataAccess.DAO
             Utils utilsFactory = new Utils();
             AbstractFileFactory fileFactory = utilsFactory.DetectFactory(FactoryType);
             var file = fileFactory.CreateFile();
+            //Separar en clases
             FileExistsInDirectory = file.CheckFileExists();
             if (FileExistsInDirectory == false)
             {
