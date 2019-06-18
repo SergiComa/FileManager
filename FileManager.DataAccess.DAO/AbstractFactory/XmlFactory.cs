@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FileManager.DataAccess.DAO
 {
-    class JsonFactory : AbstractFileFactory
+    public class XmlFactory : IAbstractFileFactory
     {
         public IGeneratedFile CreateFile()
         {
-            return new JsonFile();
+            return new XmlFile();
         }
     }
 }

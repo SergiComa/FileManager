@@ -56,18 +56,18 @@ namespace FileManager.DataAccess.DAO
         /// </summary>
         /// <param name="factory"></param>
         /// <returns></returns>
-        public AbstractFileFactory DetectFactory(char factory)
+        public IAbstractFileFactory DetectFactory(Common.Models.EnumTypeFactory enumType)
         {
-            AbstractFileFactory fileFactory;
-            switch (factory)
+            IAbstractFileFactory fileFactory;
+            switch (enumType)
             {
-                case 'T':
+                case Common.Models.EnumTypeFactory.TXT:
                     fileFactory = new TextFactory();
                     break;
-                case 'X':
+                case Common.Models.EnumTypeFactory.XML:
                     fileFactory = new XmlFactory();
                     break;
-                case 'J':
+                case Common.Models.EnumTypeFactory.JSON:
                     fileFactory = new JsonFactory();
                     break;
                 default:

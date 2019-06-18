@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileManager.DataAccess.DAO
 {
-        class TextFactory : AbstractFileFactory
+        public class TextFactory : IAbstractFileFactory
         {
             public IGeneratedFile CreateFile()
             {

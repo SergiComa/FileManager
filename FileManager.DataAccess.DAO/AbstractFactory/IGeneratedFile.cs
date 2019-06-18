@@ -7,7 +7,7 @@ using FileManager.Common.Models;
 
 namespace FileManager.DataAccess.DAO
 {
-     public interface IGeneratedFile
+    public interface IGeneratedFile
     {
         //Que retorne un Student el cual ha sido insertado + mb generic
         void WriteToFile(Student student);

@@ -14,11 +14,11 @@ namespace FileManager.DataAccess.DAO
         /// </summary>
         /// <param name="student"></param>
         /// <returns></returns>
-        public Student Add(Student student, char FactoryType)
+        public Student Add(Student student, Common.Models.EnumTypeFactory enumType)
         {
             bool FileExistsInDirectory;
             Utils utilsFactory = new Utils();
-            AbstractFileFactory fileFactory = utilsFactory.DetectFactory(FactoryType);
+            IAbstractFileFactory fileFactory = utilsFactory.DetectFactory(enumType);
             var file = fileFactory.CreateFile();
             //Separar en clases
             FileExistsInDirectory = file.CheckFileExists();

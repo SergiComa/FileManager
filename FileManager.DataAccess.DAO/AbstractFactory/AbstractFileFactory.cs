@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace FileManager.DataAccess.DAO
 {
-    public interface AbstractFileFactory
+    public interface IAbstractFileFactory
     {
         IGeneratedFile CreateFile();
     }        

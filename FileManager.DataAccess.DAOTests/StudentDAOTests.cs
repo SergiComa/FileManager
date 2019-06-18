@@ -66,7 +66,7 @@ namespace FileManager.DataAccess.DAO.Tests
         [TestMethod()]
         public void SearchTxtById(int idStudent, char typeFactory, String testEntry)
         {
-            AbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
+            IAbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
             var file = fileFactory.CreateFile();
             readLineFromFile = file.ReturnStringStudentById(idStudent);
             Assert.AreEqual(testEntry, readLineFromFile);
@@ -76,7 +76,7 @@ namespace FileManager.DataAccess.DAO.Tests
         [TestMethod()]
         public void SearchXmlById(int idStudent, char typeFactory, String testEntry)
         {
-            AbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
+            IAbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
             var file = fileFactory.CreateFile();
             readLineFromFile = file.ReturnStringStudentById(idStudent);
             Assert.AreEqual(testEntry, readLineFromFile);

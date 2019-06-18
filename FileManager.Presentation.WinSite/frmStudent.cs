@@ -38,7 +38,14 @@ namespace FileManager.Presentation.WinSite
             student.Name = txtName.Text;
             student.Surname = txtSurname.Text;
             student.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text).Date;
-            iStudentDAO.Add(student, 'T');
+            IAbstractFileFactory fileFactory = new TextFactory();
+            var file = fileFactory.CreateFile();
+            bool fileExists = file.CheckFileExists();
+            if (fileExists != true)
+            {
+                file.CreateFile();
+            }
+            iStudentDAO.Add(student, Common.Models.EnumTypeFactory.TXT);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -49,7 +56,14 @@ namespace FileManager.Presentation.WinSite
             student.Name = txtName.Text;
             student.Surname = txtSurname.Text;
             student.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text).Date;
-            iStudentDAO.Add(student, 'X');
+            IAbstractFileFactory fileFactory = new XmlFactory();
+            var file = fileFactory.CreateFile();
+            bool fileExists = file.CheckFileExists();
+            if (fileExists != true)
+            {
+                file.CreateFile();
+            }
+            iStudentDAO.Add(student, Common.Models.EnumTypeFactory.XML);
         }
 
         private void btnJson_Click(object sender, EventArgs e)
@@ -60,7 +74,14 @@ namespace FileManager.Presentation.WinSite
             student.Name = txtName.Text;
             student.Surname = txtSurname.Text;
             student.DateOfBirth = DateTime.Parse(txtDateOfBirth.Text).Date;
-            iStudentDAO.Add(student, 'J');
+            IAbstractFileFactory fileFactory = new JsonFactory();
+            var file = fileFactory.CreateFile();
+            bool fileExists = file.CheckFileExists();
+            if (fileExists != true)
+            {
+                file.CreateFile();
+            }
+            iStudentDAO.Add(student, Common.Models.EnumTypeFactory.JSON);
         }
     }
 }
