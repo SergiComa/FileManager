@@ -16,12 +16,22 @@ namespace FileManager.DataAccess.DAO
             String pathToFile = ConfigurationManager.AppSettings.Get("TxtPath");
             String parsedString = student.StudentId + "," + student.Name + "," + student.Surname + "," + student.DateOfBirth.Date.ToString("d");
             var textWriter = new StreamWriter(pathToFile, true);
-            using (textWriter)
+            try
             {
-                textWriter.WriteLine(parsedString);
+                using (textWriter)
+                {
+                    textWriter.WriteLine(parsedString);
+                }
+                textWriter.Close();
+            }
+            catch (IOException ex)
+            {
+                using (StreamWriter writer = File.AppendText(ConfigurationManager.AppSettings.Get("LogPath")))
+                {
+                    Utils.Write2Log(ex.Message, writer);
+                }
             }
 
-            textWriter.Close();
         }
 
         public bool CheckFileExists()

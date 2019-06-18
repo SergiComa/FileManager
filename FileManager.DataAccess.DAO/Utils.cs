@@ -73,8 +73,14 @@ namespace FileManager.DataAccess.DAO
                 default:
                     throw new NotImplementedException();
             }
-
             return fileFactory;
+        }
+
+        public static void Write2Log(string logMessage, TextWriter writer)
+        {
+            writer.Write("Exception");
+            writer.WriteLine("--------------------");
+            writer.WriteLine(logMessage);
         }
     }
 }

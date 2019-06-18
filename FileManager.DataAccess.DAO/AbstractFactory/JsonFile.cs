@@ -16,10 +16,20 @@ namespace FileManager.DataAccess.DAO
         {
             String pathToFile = ConfigurationManager.AppSettings.Get("JsonPath");
             var json = File.ReadAllText(pathToFile);
-            var students = JsonConvert.DeserializeObject<List<Student>>(json) ?? new List<Student>();
-            students.Add(student);
-            json = JsonConvert.SerializeObject(students, new JsonSerializerSettings { Formatting = Formatting.Indented });
-            File.WriteAllText(pathToFile, json);
+            try
+            {
+                var students = JsonConvert.DeserializeObject<List<Student>>(json) ?? new List<Student>();
+                students.Add(student);
+                json = JsonConvert.SerializeObject(students, new JsonSerializerSettings { Formatting = Formatting.Indented });
+                File.WriteAllText(pathToFile, json);
+            }catch(JsonException jsonEx)
+            {
+                using (StreamWriter writer = File.AppendText(ConfigurationManager.AppSettings.Get("LogPath")))
+                {
+                    Utils.Write2Log(jsonEx.Message, writer);
+                }
+            }
+
         }
 
         public bool CheckFileExists()
