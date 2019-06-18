@@ -61,5 +61,26 @@ namespace FileManager.DataAccess.DAO.Tests
             readLineFromFile = readStudent.StudentId + "," + readStudent.Name + "," + readStudent.Surname + "," + readStudent.DateOfBirth;
             Assert.AreEqual(readLineFromFile, testEntry);
         }
+
+        [DataRow(2, 'T', "2,ayy,lmao,11/11/1111")]
+        [TestMethod()]
+        public void SearchTxtByIdTxt(int idStudent, char typeFactory, String testEntry)
+        {
+            AbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
+            var file = fileFactory.CreateFile();
+            readLineFromFile = file.ReturnStringStudentById(idStudent);
+            Assert.AreEqual(testEntry, readLineFromFile);
+        }
+
+        [DataRow(2, 'X', "2,wer,wer,11/11/1111")]
+        [TestMethod()]
+        public void SearchTxtByIdXml(int idStudent, char typeFactory, String testEntry)
+        {
+            AbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
+            var file = fileFactory.CreateFile();
+            readLineFromFile = file.ReturnStringStudentById(idStudent);
+            Assert.AreEqual(testEntry, readLineFromFile);
+        }
+
     }
 }

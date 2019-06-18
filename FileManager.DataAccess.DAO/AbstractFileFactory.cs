@@ -25,6 +25,7 @@ namespace FileManager.DataAccess.DAO
         void WriteToFile(Student student);
         void CreateFile();
         bool CheckFileExists();
+        String ReturnStringStudentById(int studentId);
     }
 
 
@@ -68,6 +69,26 @@ namespace FileManager.DataAccess.DAO
             String pathToFile = ConfigurationManager.AppSettings.Get("TxtPath");
             File.Create(pathToFile).Close();
         }
+
+        public String ReturnStringStudentById(int studentId)
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("TxtPath");
+            String auxStudent;
+            String givenStudent = null;
+            String[] values;
+            bool studentFound = false;
+            System.IO.StreamReader file =  new System.IO.StreamReader(pathToFile);
+            while (((auxStudent = file.ReadLine()) != null) && studentFound == false)
+            {
+               values = auxStudent.Split(',');
+                if (values[0] == studentId.ToString())
+                {
+                    studentFound = true;
+                    givenStudent = auxStudent;
+                }
+            }
+            return givenStudent;
+        }
     }
 
     //Concrete text factory
@@ -95,14 +116,11 @@ namespace FileManager.DataAccess.DAO
                 r.BaseStream.Seek(0, SeekOrigin.Begin);
                 r.BaseStream.Position = 0;
                 string json = r.ReadToEnd();
-                //How to fix the whole thing when there's only one input in the database
-                //Problem: If there's only one object I can't assign to it a List so a
-                //special method have to be made, but can't distinguish if there's just
-                //a single object or multiple. 3 passed to resort to default
+                //Check number of lines and identify the number of objects through it
                 switch (testNumber) 
                 {
                     case 0:
-                        newJson = JsonConvert.SerializeObject(student);
+                        newJson = JsonConvert.SerializeObject(student, new JsonSerializerSettings { Formatting = Formatting.Indented});
                         break;
                     case 1:
                         Student singleStudent = JsonConvert.DeserializeObject<Student>(json);
@@ -137,6 +155,11 @@ namespace FileManager.DataAccess.DAO
             //Initialize to init list
             File.Create(pathToFile).Close();
         }
+
+        public String ReturnStringStudentById(int studentId)
+        {
+            return "a";
+        }
     }
 
     //Concrete text factory
@@ -157,7 +180,7 @@ namespace FileManager.DataAccess.DAO
             XDocument xmlDoc = XDocument.Load(pathToFile);
             XElement students = xmlDoc.Element("Root");
             students.Add(new XElement("Student",
-                         new XElement("Id", student.StudentId),
+                         new XAttribute("Id", student.StudentId),
                          new XElement("Name", student.Name),
                          new XElement("Surname", student.Surname),
                          new XElement("DateOfBirth", student.DateOfBirth.Date.ToString("dd/MM/yyyy"))));
@@ -180,6 +203,17 @@ namespace FileManager.DataAccess.DAO
             XDocument doc = new XDocument();
             doc.Add(new XElement("Root", ""));
             doc.Save(pathToFile);
+        }
+
+        public String ReturnStringStudentById(int studentId)
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("XmlPath");
+            XDocument xmlDoc = XDocument.Load(pathToFile);
+            IEnumerable<XElement> student =
+                from el in xmlDoc.Elements("Student")
+                where (string)el.Attribute("Type") == "Billing"
+                select el;
+            return student.ToString();
         }
     }
 }
