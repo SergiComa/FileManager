@@ -8,43 +8,42 @@ using System.Xml.Linq;
 
 namespace FileManager.DataAccess.DAO.Aeroport
 {
-    public sealed class Singleton
+    public sealed class SingletonVuelo
     {
-        private static Singleton instance = null;
+        private static SingletonVuelo instance = null;
         private static readonly object padlock = new object();
-        public string pathToFile = ConfigurationManager.AppSettings.Get("AeroportPath");
-        public Dictionary<Aeroport, List<Aeroport>> FlightsDictonary { get; private set;}
+        public static string pathToFile = ConfigurationManager.AppSettings.Get("AeroportPath");
+        public static Dictionary<Aeroport, List<Aeroport>> FlightsDictonary { get; private set;}
+        public Guid SingletonGuid { get; set; }
 
-        private Singleton()
+
+        //Del objeto al no tener static
+        private SingletonVuelo()
         {
             FlightsDictonary = new Dictionary<Aeroport, List<Aeroport>>();
-            getFlightsFromFile(pathToFile);
+            AddFlightsFromFile(pathToFile);
+            SingletonGuid = Guid.NewGuid();
         }
 
-        public static Singleton Instance
+        public static SingletonVuelo Instance
         {
             get
             {
-                if (instance == null)
-                {
                     lock (padlock)
                     {
                         if (instance == null)
                         {
-                            
-                            return new Singleton();
+                            instance = new SingletonVuelo();
                         }
                     }
-                }
                 return instance;
             }
         }
 
-        private void getFlightsFromFile(String pathToFile)
+        private void AddFlightsFromFile(String pathToFile)
         {
             XDocument document = XDocument.Load(pathToFile);
             XElement root = document.Element("airports");
-
             var airports = from element in root.Elements()
                            select element;
 
@@ -58,7 +57,9 @@ namespace FileManager.DataAccess.DAO.Aeroport
                 {
                     airportConnections.Add(new Aeroport(con.Value));
                 }
+
                 FlightsDictonary.Add(new Aeroport(name), airportConnections);
+
             }
         }
     }

@@ -13,7 +13,7 @@ namespace FileManager.Presentation.WinSite
 {
     public partial class frmAirports : Form
     {
-        private Singleton vuelosSingleton = null;
+        private SingletonVuelo vuelosSingleton = null;
 
         public frmAirports()
         {
@@ -22,7 +22,7 @@ namespace FileManager.Presentation.WinSite
 
         private void frmAirports_Load(object sender, EventArgs e)
         {
-            vuelosSingleton = Singleton.Instance;
+            vuelosSingleton = SingletonVuelo.Instance;
             InitializeOriginComboBox();
 
             string selectedCity = originCbo.SelectedItem.ToString();
@@ -31,13 +31,21 @@ namespace FileManager.Presentation.WinSite
 
         private void InitializeOriginComboBox()
         {
-            int size = vuelosSingleton.FlightsDictonary.Keys.Count;
+            int size = SingletonVuelo.FlightsDictonary.Keys.Count;
             string[] items = new string[size];
+            int counter = 0;
 
             for (int i = 0; i < size; ++i)
             {
-                items[i] = vuelosSingleton.FlightsDictonary.Keys.ElementAt(i).Name;
+                items[i] = SingletonVuelo.FlightsDictonary.Keys.ElementAt(i).Name;
             }
+
+            foreach (var single in SingletonVuelo.FlightsDictonary.Keys)
+            {
+                items[counter] = SingletonVuelo.FlightsDictonary.Keys.ElementAt(counter).Name;
+                ++counter;
+            }
+
             originCbo.DataSource = items;
             originCbo.SelectedIndex = 0;
         }
@@ -46,17 +54,21 @@ namespace FileManager.Presentation.WinSite
         {
 
             List<Aeroport> airports;
-            bool found = vuelosSingleton.FlightsDictonary.TryGetValue(new Aeroport(cityName), out airports);
+            int counter = 0;
+            bool found = SingletonVuelo.FlightsDictonary.TryGetValue(new Aeroport(cityName), out airports);
             if (!found)
             {
-                throw new Exception("No airports");
+                throw new Exception("Not found for now");
             }
 
             string[] airportNames = new string[airports.Count];
-            for (int i = 0; i < airportNames.Length; ++i)
+
+            foreach (Aeroport airport in airports)
             {
-                airportNames[i] = airports[i].Name;
+                airportNames[counter] = airports[counter].Name;
+                ++counter;
             }
+
             destinationCbo.DataSource = airportNames;
             destinationCbo.SelectedItem = 0;
         }
