@@ -1,10 +1,13 @@
 ﻿using FileManager.DataAccess.DAO.Aeroport;
+using FileManager.Presentation.WinSite.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -55,10 +58,20 @@ namespace FileManager.Presentation.WinSite
 
             List<Aeroport> airports;
             int counter = 0;
+            ResourceManager resourceManager =new ResourceManager("frmAirports", Assembly.Load("App_GlobalResources"));
+            string myString = resourceManager.GetString("StringKey");
+
+            string resxFile = @"frmAirports.resx";
+
+            using (ResXResourceSet resxSet = new ResXResourceSet(resxFile))
+            {
+                string defText = resxSet.GetString("ExceptionDefault");
+            }
+
             bool found = SingletonVuelo.FlightsDictonary.TryGetValue(new Aeroport(cityName), out airports);
             if (!found)
             {
-                throw new Exception("Not found for now");
+                throw new Exception("ExceptionDefault");
             }
 
             string[] airportNames = new string[airports.Count];
@@ -72,6 +85,7 @@ namespace FileManager.Presentation.WinSite
             destinationCbo.DataSource = airportNames;
             destinationCbo.SelectedItem = 0;
         }
+
 
         private void originCbo_SelectedIndexChanged_1(object sender, EventArgs e)
         {
