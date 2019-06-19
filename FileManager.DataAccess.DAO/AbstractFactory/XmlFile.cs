@@ -89,7 +89,26 @@ namespace FileManager.DataAccess.DAO
             Student auxStudent = new Student();
             List<Student> list = new List<Student>();
             XDocument xDoc = XDocument.Load(pathToFile);
-            var studentXml = xDoc.Descendants("Student");
+            XElement root = xDoc.Root;
+
+            var studentSurname =
+                from el in root.Elements("Student")
+                where (string)el.Attribute("Id") == studentId.ToString()
+                select el.Element("Surname");
+
+            var student = from element in root.Elements("Student")
+                          where element.Attribute("Id").Value.Equals(studentId.ToString())
+                          select element;
+
+            XElement foundStudent = student.First();
+            auxStudent.StudentId = Int32.Parse(foundStudent.Attribute("Id").Value);
+            auxStudent.Name = foundStudent.Element("Name").Value;
+            auxStudent.Surname = foundStudent.Element("Surname").Value;
+            auxStudent.DateOfBirth = Convert.ToDateTime(foundStudent.Element("DateOfBirth").Value);
+
+
+
+            /*var studentXml = xDoc.Descendants("Student");
             foreach (var studentNode in studentXml)
             {
                 auxStudent.StudentId = Int32.Parse(studentNode.Attribute("Id").Value);
@@ -99,34 +118,10 @@ namespace FileManager.DataAccess.DAO
                 list.Add(auxStudent);
             }
 
-            return list.Where(s => s.StudentId == studentId).FirstOrDefault();
-            /*IEnumerable<XElement> fulStudent =
-            from el in root.Elements("Student")
-            where (string)el.Attribute("Id") == studentId.ToString()
-            select el;
+            return list.Where(s => s.StudentId == studentId).FirstOrDefault();*/
 
-            var studentName =
-                from el in root.Elements("Student")
-                where (string)el.Attribute("Id") == studentId.ToString()
-                select el.Element("Name");
-            XElement xName = studentName.First();
-            auxStudent.Name = xName.Value;
 
-            var studentSurname =
-                from el in root.Elements("Student")
-                where (string)el.Attribute("Id") == studentId.ToString()
-                select el.Element("Surname");
-            XElement xSurname = studentName.First();
-            auxStudent.Surname = xName.Value;
-
-            var studentDateOfBirth =
-                from el in root.Elements("Student")
-                where (string)el.Attribute("Id") == studentId.ToString()
-                select el.Element("DateOfBirth");
-            XElement xDateOfBirth = studentName.First();
-            auxStudent.DateOfBirth = DateTime.Parse(xDateOfBirth.Value);
-
-            auxStudent.StudentId = studentId;*/
+            return auxStudent;
 
 
         }
