@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AbstractFactory\AbstractFileFactory.cs" />
     <Compile Include="AbstractFactory\IGeneratedFile.cs" />
+    <Compile Include="Aeroport\Singleton.cs" />
     <Compile Include="Student\IStudentDAO.cs" />
     <Compile Include="AbstractFactory\JsonFactory.cs" />
     <Compile Include="AbstractFactory\JsonFile.cs" />

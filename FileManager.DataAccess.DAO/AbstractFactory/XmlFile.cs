@@ -106,24 +106,7 @@ namespace FileManager.DataAccess.DAO
             auxStudent.Surname = foundStudent.Element("Surname").Value;
             auxStudent.DateOfBirth = Convert.ToDateTime(foundStudent.Element("DateOfBirth").Value);
 
-
-
-            /*var studentXml = xDoc.Descendants("Student");
-            foreach (var studentNode in studentXml)
-            {
-                auxStudent.StudentId = Int32.Parse(studentNode.Attribute("Id").Value);
-                auxStudent.Name = studentNode.Element("Name").Value;
-                auxStudent.Surname = studentNode.Element("Surname").Value;
-                auxStudent.DateOfBirth = DateTime.Parse(studentNode.Element("DateOfBirth").Value);
-                list.Add(auxStudent);
-            }
-
-            return list.Where(s => s.StudentId == studentId).FirstOrDefault();*/
-
-
             return auxStudent;
-
-
         }
     }
 }
