@@ -81,6 +81,7 @@ namespace FileManager.Presentation.WinSite
                 ++counter;
             }
 
+            //Lista de objetos habra que sobreescribir el toString
             destinationCbo.DataSource = airportNames;
             destinationCbo.SelectedItem = 0;
         }
@@ -118,12 +119,19 @@ namespace FileManager.Presentation.WinSite
 
         private void spanishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            language = "es-ES";
-            spanishToolStripMenuItem.Checked = true;
-            englishToolStripMenuItem.Checked = false;
+            DialogResult dialog = MessageBox.Show("Reiniciar el idioma?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialog == DialogResult.Yes)
+            {
+                language = "es-ES";
+                spanishToolStripMenuItem.Checked = true;
+                englishToolStripMenuItem.Checked = false;
 
-            Properties.Settings.Default.Language = "es-ES";
-            Properties.Settings.Default.Save();
+                Properties.Settings.Default.Language = "es-ES";
+                Properties.Settings.Default.Save();
+
+                Application.Restart();
+            }
+
         }
 
         private void englishToolStripMenuItem1_Click(object sender, EventArgs e)
