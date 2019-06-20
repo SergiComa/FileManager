@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dlgChangeLanguage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dlgChangeLanguage.Designer.cs">
+      <DependentUpon>dlgChangeLanguage.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAirports.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="dlgChangeLanguage.resx">
+      <DependentUpon>dlgChangeLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAirports.es.resx">
+      <DependentUpon>frmAirports.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAirports.resx">
       <DependentUpon>frmAirports.cs</DependentUpon>
     </EmbeddedResource>

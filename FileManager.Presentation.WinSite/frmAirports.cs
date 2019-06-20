@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,16 +22,22 @@ namespace FileManager.Presentation.WinSite
 
         public frmAirports()
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
             InitializeComponent();
         }
 
+        public string language = Properties.Settings.Default.Language;
+
+
         private void frmAirports_Load(object sender, EventArgs e)
         {
+
             vuelosSingleton = SingletonVuelo.Instance;
             InitializeOriginComboBox();
 
             string selectedCity = originCbo.SelectedItem.ToString();
             InitializeDestinationCombobox(selectedCity);
+            
         }
 
         private void InitializeOriginComboBox()
@@ -58,15 +66,6 @@ namespace FileManager.Presentation.WinSite
 
             List<Aeroport> airports;
             int counter = 0;
-            ResourceManager resourceManager =new ResourceManager("frmAirports", Assembly.Load("App_GlobalResources"));
-            string myString = resourceManager.GetString("StringKey");
-
-            string resxFile = @"frmAirports.resx";
-
-            using (ResXResourceSet resxSet = new ResXResourceSet(resxFile))
-            {
-                string defText = resxSet.GetString("ExceptionDefault");
-            }
 
             bool found = SingletonVuelo.FlightsDictonary.TryGetValue(new Aeroport(cityName), out airports);
             if (!found)
@@ -95,6 +94,53 @@ namespace FileManager.Presentation.WinSite
 
         private void destinationCbo_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+
+        }
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ChangeLanguage(string language)
+        {
+            foreach (Control c in this.Controls)
+            {
+                ComponentResourceManager resource = new ComponentResourceManager(typeof(frmAirports));
+                resource.ApplyResources(c, c.Name, new CultureInfo(language));
+            }
+          }
+
+        private void spanishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            language = "es-ES";
+            spanishToolStripMenuItem.Checked = true;
+            englishToolStripMenuItem.Checked = false;
+
+            Properties.Settings.Default.Language = "es-ES";
+            Properties.Settings.Default.Save();
+        }
+
+        private void englishToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //dlgChangeLanguage dialog = new dlgChangeLanguage();
+            DialogResult dialog = MessageBox.Show("Reiniciar el idioma?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialog == DialogResult.Yes)
+            {
+                language = "en-US";
+                spanishToolStripMenuItem.Checked = false;
+                englishToolStripMenuItem.Checked = true;
+
+                Properties.Settings.Default.Language = "en-US";
+                Properties.Settings.Default.Save();
+
+                Application.Restart();
+            }
 
         }
     }
