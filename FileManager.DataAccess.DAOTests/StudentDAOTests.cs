@@ -62,7 +62,7 @@ namespace FileManager.DataAccess.DAO.Tests
             Assert.AreEqual(readLineFromFile, testEntry);
         }
 
-        [DataRow(2, Common.Models.EnumTypeFactory.TXT, "2", "ayy", "lmao", "11/11/1111 0:00:00")]
+        [DataRow(2, Common.Models.EnumTypeFactory.TXT, "2", "wer", "wer", "11/11/2069")]
         [TestMethod()]
         public void SearchTxtById(int idStudent, Common.Models.EnumTypeFactory typeFactory, String id, String name, String surname, String DateOfBirth)
         {
@@ -76,7 +76,7 @@ namespace FileManager.DataAccess.DAO.Tests
             Assert.IsTrue(student.Equals(readStudent));
         }
 
-        [DataRow(2, Common.Models.EnumTypeFactory.XML, "2", "sdf", "sdf", "11/11/1133 0:00:00")]
+        [DataRow(2, Common.Models.EnumTypeFactory.XML, "2", "lmaotest", "lmaotest", "11/11/2069 0:00:00")]
         [TestMethod()]
         public void SearchXmlById(int idStudent, Common.Models.EnumTypeFactory typeFactory, String id, String name, String surname, String DateOfBirth)
         {
@@ -86,6 +86,36 @@ namespace FileManager.DataAccess.DAO.Tests
             student.DateOfBirth = DateTime.Parse(DateOfBirth).Date;
             IAbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
             var file = fileFactory.CreateFile();
+            readStudent = file.ReturnStringStudentById(idStudent);
+            Assert.IsTrue(student.Equals(readStudent));
+        }
+
+        [DataRow(2, Common.Models.EnumTypeFactory.TXT, "2", "wer", "wer", "11/11/2069")]
+        [TestMethod()]
+        public void UpdateTextById(int idStudent, Common.Models.EnumTypeFactory typeFactory, String id, String name, String surname, String DateOfBirth)
+        {
+            student.StudentId = Int32.Parse(id);
+            student.Name = name;
+            student.Surname = surname;
+            student.DateOfBirth = DateTime.Parse(DateOfBirth).Date;
+            IAbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
+            var file = fileFactory.CreateFile();
+            file.UpdateStudentById(idStudent, student);
+            readStudent = file.ReturnStringStudentById(idStudent);
+            Assert.IsTrue(student.Equals(readStudent));
+        }
+
+        [DataRow(2, Common.Models.EnumTypeFactory.XML, "2", "lmaotest", "lmaotest", "11/11/2069")]
+        [TestMethod()]
+        public void UpdateXmlById(int idStudent, Common.Models.EnumTypeFactory typeFactory, String id, String name, String surname, String DateOfBirth)
+        {
+            student.StudentId = Int32.Parse(id);
+            student.Name = name;
+            student.Surname = surname;
+            student.DateOfBirth = DateTime.Parse(DateOfBirth).Date;
+            IAbstractFileFactory fileFactory = utils.DetectFactory(typeFactory);
+            var file = fileFactory.CreateFile();
+            file.UpdateStudentById(idStudent, student);
             readStudent = file.ReturnStringStudentById(idStudent);
             Assert.IsTrue(student.Equals(readStudent));
         }

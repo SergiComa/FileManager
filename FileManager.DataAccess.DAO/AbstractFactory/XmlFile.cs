@@ -91,11 +91,6 @@ namespace FileManager.DataAccess.DAO
             XDocument xDoc = XDocument.Load(pathToFile);
             XElement root = xDoc.Root;
 
-            var studentSurname =
-                from el in root.Elements("Student")
-                where (string)el.Attribute("Id") == studentId.ToString()
-                select el.Element("Surname");
-
             var student = from element in root.Elements("Student")
                           where element.Attribute("Id").Value.Equals(studentId.ToString())
                           select element;
@@ -107,6 +102,27 @@ namespace FileManager.DataAccess.DAO
             auxStudent.DateOfBirth = Convert.ToDateTime(foundStudent.Element("DateOfBirth").Value);
 
             return auxStudent;
+        }
+
+        public void UpdateStudentById(int studentId, Student newStudent)
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("XmlPath");
+            Student auxStudent = new Student();
+            XDocument xDoc = XDocument.Load(pathToFile);
+            XElement root = xDoc.Root;
+
+            var studentToReplace = from element in root.Elements("Student")
+                          where element.Attribute("Id").Value.Equals(studentId.ToString())
+                          select element;
+
+            XElement foundStudent = studentToReplace.First();
+
+            foundStudent.Attribute("Id").Value = newStudent.StudentId.ToString();
+            foundStudent.Element("Name").Value = newStudent.Name;
+            foundStudent.Element("Surname").Value = newStudent.Surname;
+            foundStudent.Element("DateOfBirth").Value = newStudent.DateOfBirth.ToString();
+
+            xDoc.Save(pathToFile);
         }
     }
 }

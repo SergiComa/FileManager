@@ -15,5 +15,6 @@ namespace FileManager.DataAccess.DAO
         void CreateFile();
         bool CheckFileExists();
         Student ReturnStringStudentById(int studentId);
+        void UpdateStudentById(int studentId, Student newStudent);
     }
 }

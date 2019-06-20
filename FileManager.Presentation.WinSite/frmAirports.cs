@@ -119,37 +119,12 @@ namespace FileManager.Presentation.WinSite
 
         private void spanishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Reiniciar el idioma?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (dialog == DialogResult.Yes)
-            {
-                language = "es-ES";
-                spanishToolStripMenuItem.Checked = true;
-                englishToolStripMenuItem.Checked = false;
-
-                Properties.Settings.Default.Language = "es-ES";
-                Properties.Settings.Default.Save();
-
-                Application.Restart();
-            }
-
+            ChangeLanguage("es-ES");
         }
 
         private void englishToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //dlgChangeLanguage dialog = new dlgChangeLanguage();
-            DialogResult dialog = MessageBox.Show("Reiniciar el idioma?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (dialog == DialogResult.Yes)
-            {
-                language = "en-US";
-                spanishToolStripMenuItem.Checked = false;
-                englishToolStripMenuItem.Checked = true;
-
-                Properties.Settings.Default.Language = "en-US";
-                Properties.Settings.Default.Save();
-
-                Application.Restart();
-            }
-
+            ChangeLanguage("en-US");
         }
     }
 }

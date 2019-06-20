@@ -72,7 +72,19 @@ namespace FileManager.DataAccess.DAO
                     auxStudent.DateOfBirth = DateTime.Parse(values[3]);
                 }
             }
+            file.Close();
             return auxStudent;
+        }
+
+        public void UpdateStudentById(int studentId, Student newStudent)
+        {
+            String pathToFile = ConfigurationManager.AppSettings.Get("TxtPath");
+            Student auxStudent = ReturnStringStudentById(studentId);
+            String parsedStudent = newStudent.StudentId + "," + newStudent.Name + "," + newStudent.Surname + "," + newStudent.DateOfBirth.Date.ToString("d");
+            String oldStudent = auxStudent.StudentId + "," + auxStudent.Name + "," + auxStudent.Surname + "," + auxStudent.DateOfBirth.Date.ToString("d");
+            String text = File.ReadAllText(pathToFile);
+            text = text.Replace(oldStudent, parsedStudent);
+            File.WriteAllText(pathToFile, text);
         }
     }
 }

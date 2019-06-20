@@ -23,6 +23,7 @@ namespace FileManager.Presentation.WinSite
         private void frmStudent_Load(object sender, EventArgs e)
         {
             String sAttr = ConfigurationManager.AppSettings.Get("XmlPath");
+
         }
 
         private void label1_Click(object sender, EventArgs e)
